@@ -15,17 +15,17 @@
             <div class="date">
                 <section>
                     <p class="subtitle">Today</p>
-                    <p class="number"><?php echo "12"; ?></p>
+                    <p class="number"><?php echo '12'; ?></p>
                     <p class="hour">hour</p>
                 </section>
                 <section>
                     <p class="subtitle">Month</p>
-                    <p class="number"><?php echo "50"; ?></p>
+                    <p class="number"><?php echo '50'; ?></p>
                     <p class="hour">hour</p>
                 </section>
                 <section>
                     <p class="subtitle">Total</p>
-                    <p class="number"><?php echo "600"; ?></p>
+                    <p class="number"><?php echo '600'; ?></p>
                     <p class="hour">hour</p>
                 </section>
             </div>
@@ -36,7 +36,7 @@
                 </div>
             </section>
         </div>
-         {{-- <!-- 右側のコンテンツ --> --}}
+        {{-- <!-- 右側のコンテンツ --> --}}
         <div class="doughnut_chart_wrapper">
             <section class="learning_language_area">
                 <div class="learning_language">学習言語</div>
@@ -54,11 +54,11 @@
                 <div class="learning_contents">学習コンテンツ</div>
                 <div class="contents_graph" style="position: relative; height:46%; width:80%">
                     <canvas id="myChart3">
-                        
+
                     </canvas>
                 </div>
                 <ul class="each_content">
-                    
+
                 </ul>
             </section>
         </div>
@@ -80,7 +80,7 @@
         <div id="modalBg" class="modalBg"></div>
         {{-- <!-- モーダル内に書き込むコンテンツ部分 --> --}}
         <div class="modalWrapper">
-            
+
             {{-- <!-- post処理 --> --}}
             <form action="add_data.php" method="post" name="submitForm" class="submit__form">
                 {{-- <!-- エリア内のflex適用部分 --> --}}
@@ -90,30 +90,53 @@
 
                         <div>
                             <div class="modal_small_title">学習日</div>
-                            <input id="sample" class="s_textbox flatpickr-input" type="text" name="learning_date" readonly="readonly">
+                            <input id="sample" class="s_textbox flatpickr-input" type="text" name="learning_date"
+                                readonly="readonly">
                         </div>
 
                         <div>
                             <div class="modal_small_title">学習コンテンツ（複数選択可）</div>
                             <ul class="check_contents">
-                                <li><label id="check_area1"><input type="checkbox" name="learning_content" value="2"><span id="checkbox1" class="fas fa-check-circle check_style"></span>N予備校</label>
+                                <li><label id="check_area1"><input type="checkbox" name="learning_content"
+                                            value="2"><span id="checkbox1"
+                                            class="fas fa-check-circle check_style"></span>N予備校</label>
                                 </li>
-                                <li><label id="check_area2"><input type="checkbox" name="learning_content" value="1"><span id="checkbox2" class="fas fa-check-circle check_style"></span>ドットインストール</label></li>
-                                <li><label id="check_area3"><input type="checkbox" name="learning_content" value="3"><span id="checkbox3" class="fas fa-check-circle check_style"></span>POSSE課題</label></li>
+                                <li><label id="check_area2"><input type="checkbox" name="learning_content"
+                                            value="1"><span id="checkbox2"
+                                            class="fas fa-check-circle check_style"></span>ドットインストール</label></li>
+                                <li><label id="check_area3"><input type="checkbox" name="learning_content"
+                                            value="3"><span id="checkbox3"
+                                            class="fas fa-check-circle check_style"></span>POSSE課題</label></li>
                             </ul>
                         </div>
 
                         <div>
                             <div class="modal_small_title">学習言語（複数選択可）</div>
                             <ul class="check_contents">
-                                <li><label id="check_area4"><input type="checkbox" name="learning_language" value="4"><span id="checkbox4" class="fas fa-check-circle check_style"></span>HTML</label></li>
-                                <li><label id="check_area5"><input type="checkbox" name="learning_language" value="2"><span id="checkbox5" class="fas fa-check-circle check_style"></span>CSS</label></li>
-                                <li><label id="check_area6"><input type="checkbox" name="learning_language" value="1"><span id="checkbox6" class="fas fa-check-circle check_style"></span>JavaScript</label></li>
-                                <li><label id="check_area7"><input type="checkbox" name="learning_language" value="3"><span id="checkbox7" class="fas fa-check-circle check_style"></span>PHP</label></li>
-                                <li><label id="check_area8"><input type="checkbox" name="learning_language" value="5"><span id="checkbox8" class="fas fa-check-circle check_style"></span>Laravel</label></li>
-                                <li><label id="check_area9"><input type="checkbox" name="learning_language" value="6"><span id="checkbox9" class="fas fa-check-circle check_style"></span>SQL</label></li>
-                                <li><label id="check_area10"><input type="checkbox" name="learning_language" value="7"><span id="checkbox10" class="fas fa-check-circle check_style"></span>SHELL</label></li>
-                                <li><label id="check_area11"><input type="checkbox" name="learning_language" value="8"><span id="checkbox11" class="fas fa-check-circle check_style"></span>情報システム基礎知識（その他）</label></li>
+                                <li><label id="check_area4"><input type="checkbox" name="learning_language"
+                                            value="4"><span id="checkbox4"
+                                            class="fas fa-check-circle check_style"></span>HTML</label></li>
+                                <li><label id="check_area5"><input type="checkbox" name="learning_language"
+                                            value="2"><span id="checkbox5"
+                                            class="fas fa-check-circle check_style"></span>CSS</label></li>
+                                <li><label id="check_area6"><input type="checkbox" name="learning_language"
+                                            value="1"><span id="checkbox6"
+                                            class="fas fa-check-circle check_style"></span>JavaScript</label></li>
+                                <li><label id="check_area7"><input type="checkbox" name="learning_language"
+                                            value="3"><span id="checkbox7"
+                                            class="fas fa-check-circle check_style"></span>PHP</label></li>
+                                <li><label id="check_area8"><input type="checkbox" name="learning_language"
+                                            value="5"><span id="checkbox8"
+                                            class="fas fa-check-circle check_style"></span>Laravel</label></li>
+                                <li><label id="check_area9"><input type="checkbox" name="learning_language"
+                                            value="6"><span id="checkbox9"
+                                            class="fas fa-check-circle check_style"></span>SQL</label></li>
+                                <li><label id="check_area10"><input type="checkbox" name="learning_language"
+                                            value="7"><span id="checkbox10"
+                                            class="fas fa-check-circle check_style"></span>SHELL</label></li>
+                                <li><label id="check_area11"><input type="checkbox" name="learning_language"
+                                            value="8"><span id="checkbox11"
+                                            class="fas fa-check-circle check_style"></span>情報システム基礎知識（その他）</label></li>
                             </ul>
                         </div>
 
@@ -122,7 +145,8 @@
                     <div id="modal_2nd">
                         <div>
                             <p class="modal_small_title">学習時間</p>
-                            <input id="learning_hour" class="s_textbox" type="number" name="learning_hour" step="1" min="0" max="10">
+                            <input id="learning_hour" class="s_textbox" type="number" name="learning_hour"
+                                step="1" min="0" max="10">
                         </div>
 
                         <div>
@@ -131,7 +155,8 @@
                         </div>
 
                         <div class="confirm_twitter">
-                            <p><label id="check_area12"><input id="twitter_box" type="checkbox"><span id="checkbox12" class="fas fa-check-circle check_style"></span>Twitterにシェアする</label></p>
+                            <p><label id="check_area12"><input id="twitter_box" type="checkbox"><span id="checkbox12"
+                                        class="fas fa-check-circle check_style"></span>Twitterにシェアする</label></p>
                         </div>
                     </div>
 
@@ -152,13 +177,14 @@
 
                 </div>
 
-                <input type="submit" name="submit" id="submit_info" class="submit__button2" target="_blank" value="記録・投稿">
+                <input type="submit" name="submit" id="submit_info" class="submit__button2" target="_blank"
+                    value="記録・投稿">
             </form>
         </div>
     </section>
 
     <script type="text/javascript">
-    // １こめ
+        // １こめ
         //日ごとの学習時間を示す棒グラフ
         var ctx = document.getElementById("myBar2Chart").getContext("2d");;
 
@@ -172,7 +198,9 @@
             //データの設定
             data: {
                 //データ項目のラベル
-                labels: ["", "2", "", "4", "", "6", "", "8", "", "10", "", "12", "", "14", "", "16", "", "18", "", "20", "", "22", "", "24", "", "26", "", "28", "", "30", ""],
+                labels: ["", "2", "", "4", "", "6", "", "8", "", "10", "", "12", "", "14", "", "16", "", "18", "",
+                    "20", "", "22", "", "24", "", "26", "", "28", "", "30", ""
+                ],
                 //データセット
                 datasets: [{
                     //凡例
@@ -193,7 +221,8 @@
                     //グラフのデータ
                     //   課題・・・dataの中に、24番目（25日）に5(h)をいれたい
                     data: [
-                        2, 1, 3, 5, 2, 3, 5, 7, 5, 4, 3, 6, 8, 7, 4, 7, 5, 2, 6, 3, 5, 2, 3, 5, 7, 6, 4, 3, 1, 4
+                        2, 1, 3, 5, 2, 3, 5, 7, 5, 4, 3, 6, 8, 7, 4, 7, 5, 2, 6, 3, 5, 2, 3, 5, 7, 6, 4,
+                        3, 1, 4
                     ]
                 }]
             },
@@ -252,7 +281,7 @@
 
             }
         });
-    // ２こめ
+        // ２こめ
         var dataLabelPlugin = {
             afterDatasetsDraw: function(chart, easing) {
                 // To only draw at the end of animation, check for easing === 1
@@ -277,7 +306,8 @@
 
                             // Just naively convert to string for now
                             var labelString = chart.data.labels[index];
-                            var dataString = (Math.round(dataset.data[index] / dataSum * 1000) / 10).toString() + "%";
+                            var dataString = (Math.round(dataset.data[index] / dataSum * 1000) / 10)
+                                .toString() + "%";
 
                             // Make sure alignment settings are correct
                             ctx.textAlign = 'center';
@@ -286,7 +316,8 @@
                             var padding = 5;
                             var position = element.tooltipPosition();
                             // ctx.fillText(labelString, position.x, position.y - (fontSize / 2) - padding);
-                            ctx.fillText(dataString, position.x, position.y + (fontSize / 2) - padding);
+                            ctx.fillText(dataString, position.x, position.y + (fontSize / 2) -
+                                padding);
                         });
                     }
                 });
@@ -300,7 +331,7 @@
             data: {
                 labels: [
                     // "ドットインストール", "N予備校", "POSSE課題"
-                    
+
                 ],
                 datasets: [{
                     label: "Sample",
@@ -350,7 +381,8 @@
 
                             // Just naively convert to string for now
                             var labelString = chart.data.labels[index];
-                            var dataString = (Math.round(dataset.data[index] / dataSum * 1000) / 10).toString() + "%";
+                            var dataString = (Math.round(dataset.data[index] / dataSum * 1000) / 10)
+                                .toString() + "%";
                             // Make sure alignment settings are correct
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'middle';
@@ -358,7 +390,8 @@
                             var padding = 5;
                             var position = element.tooltipPosition();
                             // ctx.fillText(labelString, position.x, position.y - (fontSize / 2) - padding);
-                            ctx.fillText(dataString, position.x, position.y + (fontSize / 2) - padding);
+                            ctx.fillText(dataString, position.x, position.y + (fontSize / 2) -
+                                padding);
                         });
                     }
                 });
@@ -372,16 +405,16 @@
             data: {
                 labels: [
                     // "JavaScript", "CSS", "PHP", "HTML", "Laravel", "SQL", "SHELL", "情報system基礎知識（その他）"
-                    
+
                 ],
                 datasets: [{
                     label: "学習言語",
                     backgroundColor: [
                         // "#0b03fc", "#1077a3", "#19b4c2", "#86c2db", "#b6a3d1", "#7250ab", "#4d0fb8", "#2f0b6e"
-                        
+
                     ],
                     data: [
-                        
+
                     ],
                 }]
             },
@@ -396,4 +429,9 @@
             plugins: [dataLabelPlugin]
         });
     </script>
+    {{-- 特定のjsの読み込み --}}
+    {{-- @push('scripts')
+        webappのjs
+        <script src="{{ asset('js/webapp.js') }}"></script>
+    @endpush --}}
 @endsection

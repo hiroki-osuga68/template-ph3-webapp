@@ -6,6 +6,10 @@ body{
   img {
       max-width: 100%;
     }
+  
+  li {
+    list-style: none;
+  }
   /* ----------------header------------------------ */
   #header{
       background-color: #fff;
