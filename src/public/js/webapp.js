@@ -1,6 +1,6 @@
 // カレンダーのテキスト表示
-var sample = document.getElementById('sample');
-var fp = flatpickr(sample);
+// var sample = document.getElementById('sample');
+// var fp = flatpickr(sample);
 
 //modalの開閉
 (function () {
