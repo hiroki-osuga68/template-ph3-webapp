@@ -1,6 +1,7 @@
 body{
     background-color: #f5f5f8;
     font-family: "Arial", "メイリオ";
+    margin: 0px;
   }
   
   img {
@@ -35,7 +36,7 @@ body{
   .site_title{
       width: 140px;
       height: auto;
-      padding:20px 32px;
+      padding:0px 32px;
   }
   .logo_area span{
       padding:32px 32px;
