@@ -71,7 +71,7 @@
     <div class="change_page">
         <time datetime="2021-10">
             <a href="#" class="arrow_left"></a>
-            2021年10月
+            {{ $this_month }}
             <a href="#" class="arrow_right"></a>
         </time>
     </div>
