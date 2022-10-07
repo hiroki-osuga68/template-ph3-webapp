@@ -37,4 +37,9 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    // login後のリダイレクト先
+    public function redirectPath()
+    {
+        return 'webapp';
+    }
 }

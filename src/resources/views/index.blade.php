@@ -8,24 +8,24 @@
             <div id="circle-core"></div>
         </div>
     </div>
-    {{-- <!-- 月のweek毎のシート？ --> --}}
+    {{-- <!-- 月のweek毎のシート --> --}}
     <div id="contents">
         {{-- <!-- 左側のコンテンツ --> --}}
         <div class="bar_graph_wrapper">
             <div class="date">
                 <section>
                     <p class="subtitle">Today</p>
-                    <p class="number"><?php echo '12'; ?></p>
+                    <p class="number">{{ $today_study_hour }}</p>
                     <p class="hour">hour</p>
                 </section>
                 <section>
                     <p class="subtitle">Month</p>
-                    <p class="number"><?php echo '50'; ?></p>
+                    <p class="number">{{ $month_study_hour }}</p>
                     <p class="hour">hour</p>
                 </section>
                 <section>
                     <p class="subtitle">Total</p>
-                    <p class="number"><?php echo '600'; ?></p>
+                    <p class="number">{{ $total_study_hour }}</p>
                     <p class="hour">hour</p>
                 </section>
             </div>
@@ -47,7 +47,9 @@
                 </div>
 
                 <ul class="each_language">
-
+                    @foreach ($learning_contents as $learning_content)
+                        <li><span style="background-color: {{ $learning_content->color }}" class="circle"></span>{{ $learning_content->name }}</li>
+                    @endforeach
                 </ul>
             </section>
             <section class="learning_contents_area">
@@ -58,7 +60,9 @@
                     </canvas>
                 </div>
                 <ul class="each_content">
-
+                    @foreach ($learning_languages as $learning_language)
+                        <li><span style="background-color: {{ $learning_language->color }}" class="circle"></span>{{ $learning_language->name }}</li>
+                    @endforeach
                 </ul>
             </section>
         </div>
@@ -163,7 +167,6 @@
                     {{-- <!-- 投稿完了モーダル modal_area内、noneさせたいのはmodal_1st,right--> --}}
                     <div id="awesome_area">
                         <div>
-                            {{-- <img src="img/Awesome.png" alt=""> --}}
                             <img src="{{ asset('images/Awesome.png') }}" alt="">
                         </div>
                         <p>記録・投稿</p>
@@ -431,9 +434,4 @@
             plugins: [dataLabelPlugin],
         });
     </script>
-    {{-- 特定のjsの読み込み --}}
-    {{-- @push('scripts')
-        webappのjs
-        <script src="{{ asset('js/webapp.js') }}"></script>
-    @endpush --}}
 @endsection
