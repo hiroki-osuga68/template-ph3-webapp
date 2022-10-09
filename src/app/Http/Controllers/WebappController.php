@@ -32,6 +32,10 @@ class WebappController extends Controller
         $this_month = Carbon::now()->format('Y年m月');
         // 棒グラフの末日指定
         $last_day = Carbon::now()->endOfMonth()->format('d');
+        // 年の第何週か（月の何週目でもok）
+        $dt = new Carbon();
+        $week_of_year = $dt->weekOfYear;
+ 
 
         // 合計
         $total_language_hour = LanguageRecord::where('user_id', $user_id)->sum('study_hour');
@@ -87,7 +91,7 @@ class WebappController extends Controller
             ->groupBy('learning_content_id')
             ->get();
 
-        return view('index', compact('today_study_hour', 'month_study_hour', 'total_study_hour', 'learning_languages', 'pie_chart_languages', 'learning_contents', 'pie_chart_contents', 'this_month', 'update_bargraph_data'));
+        return view('index', compact('today_study_hour', 'month_study_hour', 'total_study_hour', 'learning_languages', 'pie_chart_languages', 'learning_contents', 'pie_chart_contents', 'this_month', 'update_bargraph_data', 'week_of_year'));
     }
 
     /**

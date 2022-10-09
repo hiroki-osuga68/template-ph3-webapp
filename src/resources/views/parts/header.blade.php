@@ -6,7 +6,7 @@
                 <h1 class="site_title">
                     <img src="https://posse-ap.com/img/posseLogo.png" alt="POSSE">
                 </h1>
-                <span class="week">4th week</span>
+                <span class="week">{{ $week_of_year }}th week</span>
             </div>
             {{-- ユーザーネームとログアウト処理 --}}
             <ul class="navbar-nav mr-auto">
