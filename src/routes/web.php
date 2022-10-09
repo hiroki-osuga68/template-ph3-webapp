@@ -2,6 +2,9 @@
 // ファサードの追加
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+// メールテスト用のクラス
+use App\Mail\Test;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +25,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 // 最終的にはログインしてユーザーごとのwebappが表示されるように変更
 Route::get('/webapp', 'WebappController@index')->middleware('auth')->name('webapp');
+
+// メールテスト
+Route::get('/test', function () {
+    Mail::to('test@example.com')->send(new Test);
+    return 'メール送信しました！';
+});
