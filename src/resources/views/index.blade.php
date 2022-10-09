@@ -47,8 +47,9 @@
                 </div>
 
                 <ul class="each_language">
-                    @foreach ($learning_contents as $learning_content)
-                        <li><span style="background-color: {{ $learning_content->color }}" class="circle"></span>{{ $learning_content->name }}</li>
+                    @foreach ($learning_languages as $learning_language)
+                        <li><span style="background-color: {{ $learning_language->color }}"
+                                class="circle"></span>{{ $learning_language->name }}</li>
                     @endforeach
                 </ul>
             </section>
@@ -60,8 +61,9 @@
                     </canvas>
                 </div>
                 <ul class="each_content">
-                    @foreach ($learning_languages as $learning_language)
-                        <li><span style="background-color: {{ $learning_language->color }}" class="circle"></span>{{ $learning_language->name }}</li>
+                    @foreach ($learning_contents as $learning_content)
+                        <li><span style="background-color: {{ $learning_content->color }}"
+                                class="circle"></span>{{ $learning_content->name }}</li>
                     @endforeach
                 </ul>
             </section>
@@ -186,10 +188,10 @@
         </div>
     </section>
 
-    <script type="text/javascript">
-        // １こめ
+    <script>
+        // 棒グラフ
         //日ごとの学習時間を示す棒グラフ
-        var ctx = document.getElementById("myBar2Chart").getContext("2d");;
+        var ctx = document.getElementById("myBar2Chart").getContext("2d");
 
         var blue_gradient = ctx.createLinearGradient(0, 0, 0, 600);
         blue_gradient.addColorStop(0, "#3DCEFE");
@@ -222,10 +224,10 @@
                     borderRadius: 10,
                     borderSkipped: false,
                     //グラフのデータ
-                    //   課題・・・dataの中に、24番目（25日）に5(h)をいれたい
                     data: [
-                        2, 1, 3, 5, 2, 3, 5, 7, 5, 4, 3, 6, 8, 7, 4, 7, 5, 2, 6, 3, 5, 2, 3, 5, 7, 6, 4,
-                        3, 1, 4
+                        @foreach ($update_bargraph_data as $value)
+                            "{{ $value }}",
+                        @endforeach
                     ]
                 }]
             },
@@ -261,11 +263,6 @@
                         gridLines: {
                             display: false,
                         },
-                        // scaleLabel: {              //軸ラベル設定
-                        //     display: true,          //表示設定
-                        //     labelString: '勉強時間',  //ラベル
-                        //     fontSize: 10               //フォントサイズ
-                        //  }
                     }]
                 },
                 //ホバーの設定
@@ -284,7 +281,7 @@
 
             }
         });
-        // 2こめ
+        // 言語の円グラフ
         var dataLabelPlugin = {
             afterDatasetsDraw: function(chart, easing) {
                 // To only draw at the end of animation, check for easing === 1
@@ -332,18 +329,23 @@
             type: 'doughnut',
             data: {
                 labels: [
-                    "JavaScript", "CSS", "PHP", "HTML", "Laravel", "SQL", "SHELL", "情報system基礎知識（その他）"
+                    @foreach ($pie_chart_languages as $pie_chart_language)
+                        "{{ $pie_chart_language->name }}",
+                    @endforeach
 
                 ],
                 datasets: [{
                     label: "学習言語",
                     backgroundColor: [
-                        "#0b03fc", "#1077a3", "#19b4c2", "#86c2db", "#b6a3d1", "#7250ab", "#4d0fb8",
-                        "#2f0b6e"
+                        @foreach ($pie_chart_languages as $pie_chart_language)
+                            "{{ $pie_chart_language->color }}",
+                        @endforeach
 
                     ],
                     data: [
-                        50, 50, 40, 52, 47, 46, 26, 20
+                        @foreach ($pie_chart_languages as $pie_chart_language)
+                            "{{ $pie_chart_language->study_hour }}",
+                        @endforeach
                     ],
                 }]
             },
@@ -357,7 +359,7 @@
             },
             plugins: [dataLabelPlugin]
         });
-        // 3こめ
+        // コンテンツの円グラフ
         var dataLabelPlugin = {
             afterDatasetsDraw: function(chart, easing) {
                 // To only draw at the end of animation, check for easing === 1
@@ -406,17 +408,23 @@
             type: 'doughnut',
             data: {
                 labels: [
-                    // "ドットインストール", "N予備校", "POSSE課題"
+                    @foreach ($pie_chart_contents as $pie_chart_content)
+                        "{{ $pie_chart_content->name }}",
+                    @endforeach
 
                 ],
                 datasets: [{
                     label: "Sample",
                     backgroundColor: [
-                        // "#0b03fc", "#1077a3", "#19b4c2"
+                        @foreach ($pie_chart_contents as $pie_chart_content)
+                            "{{ $pie_chart_content->color }}",
+                        @endforeach
 
                     ],
                     data: [
-                        // 42, 33, 25
+                        @foreach ($pie_chart_contents as $pie_chart_content)
+                            "{{ $pie_chart_content->study_hour }}",
+                        @endforeach
 
                     ],
 
