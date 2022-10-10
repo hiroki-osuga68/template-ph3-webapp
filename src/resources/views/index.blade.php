@@ -161,7 +161,7 @@
                         </div>
 
                         <div class="confirm_twitter">
-                            <p><label id="check_area12"><input id="twitter_box" type="checkbox"><span id="checkbox12"
+                            <p class="mb-0 "><label id="check_area12"><input id="twitter_box" type="checkbox"><span id="checkbox12"
                                         class="fas fa-check-circle check_style"></span>Twitterにシェアする</label></p>
                         </div>
                     </div>

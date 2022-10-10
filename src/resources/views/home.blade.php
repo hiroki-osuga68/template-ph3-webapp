@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href={{ route('webapp') }} class='h4'>Webapp画面へ</a>
                 </div>
             </div>
         </div>

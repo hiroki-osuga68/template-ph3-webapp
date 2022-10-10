@@ -41,10 +41,15 @@ li {
   width: 140px;
   height: auto;
   padding: 0px 32px;
+  line-height: 1.5;
 }
 
 .logo_area span {
   padding: 32px 32px;
+}
+
+.user {
+  padding: 32px 20px;
 }
 
 .week {
@@ -353,16 +358,14 @@ li {
 }
 
 .modalWrapper {
-  /* display: flex;
-      gap: 40px; */
   position: absolute;
   border-radius: 30px;
-  width: 900px;
-  height: 420px;
+  width: 1000px;
+  height: 560px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 800px;
+  /* max-width: 900px; */
   padding: 40px 56px;
   background-color: #fff;
 }
@@ -370,6 +373,7 @@ li {
 .modal_area {
   display: flex;
   gap: 40px;
+  margin-bottom: 24px;
 }
 
 #modal_1st {
@@ -429,11 +433,12 @@ input {
 }
 
 .check_contents label {
+  display: inline;
   background-color: whitesmoke;
   /* background-color: #e7f5ff; チェックされたとき*/
   font-size: 18px;
   margin-left: 20px;
-  padding: 0px 5px;
+  padding: 5px;
   border-radius: 10px;
   line-height: 1.8;
 }
@@ -544,9 +549,12 @@ button {
 }
 
 @media screen and (max-width: 767px) {
+  .logo_area span {
+    padding: 32px 0px;
+  }
   #contents {
     display: block;
-    padding: 84px 20px 20px;
+    padding: 64px 20px 20px;
     /* 上 左右 下 */
     gap: 16px;
   }
@@ -701,18 +709,20 @@ button {
     position: absolute;
     border-radius: 30px;
     width: 90%;
-    height: 750px;
+    height: 780px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     max-width: 800px;
     padding: 20px 20px;
+    padding-top: 40px;
     background-color: #fff;
   }
 
   /* modalを縦方向に */
   .modal_area {
     display: block;
+    margin-bottom: 0;
   }
 
   #modal_1st {
@@ -726,8 +736,12 @@ button {
 
   .modal_small_title {
     font-weight: bold;
-    margin-top: 24px;
-    margin-bottom: 10px;
+    /* margin-top: 24px;
+    margin-bottom: 10px; */
+    margin: 0;
+  }
+  .closeModal {
+    font-size: 24px;
   }
 
   input {
@@ -759,15 +773,15 @@ button {
   .check_contents label {
     background-color: whitesmoke;
     /* background-color: #e7f5ff; チェックされたとき*/
-    font-size: 18px;
+    font-size: 12px;
     margin-left: 20px;
-    padding: 0px 5px;
+    padding: 5px;
     border-radius: 10px;
     line-height: 1.8;
   }
 
   .confirm_twitter {
-    margin-top: 10px;
+    margin-top: 0px;
   }
 
   /* loadingの位置をpc版から変えて、スクロールしても位置固定 */
