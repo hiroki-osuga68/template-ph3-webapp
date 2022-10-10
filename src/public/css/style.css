@@ -419,7 +419,7 @@ input {
 .check_contents input {
   box-sizing: border-box;
   /* display: none; */
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 
 .check_contents span {

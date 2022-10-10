@@ -54,39 +54,65 @@ submit_info.onclick = function(){
 
 // クリックした際にチェックボックスの色、各項目の背景色を変える
 // font awesomeでチェックボックス使っちゃたから余計な苦労してる説アリ
-function coloringCheckbox(i){
-  let checkbox = document.getElementById(`checkbox${i+1}`);
-  let check_area = document.getElementById(`check_area${i+1}`);
+// function coloringCheckbox(i, j){
+//   let content_checkbox = document.getElementById(`content_checkbox${i+1}`);
+//   // console.log(content_checkbox);
+//   let content_check_area = document.getElementById(`content_check_area${i+1}`);
+//   let language_checkbox = document.getElementById(`language_content_checkbox${j+1}`);
+//   let language_check_area = document.getElementById(`language_check_area${j+1}`);
   
-  checkbox.onclick = function(){
-    checkbox.classList.toggle('check_style_click');
-    check_area.classList.toggle('check_area_click');
-  };
-};
-for(i=0; i<=11; i++){
-  coloringCheckbox(i);
-};
+//   content_checkbox.onclick = function(){
+//     content_checkbox.classList.toggle('check_style_click');
+//     content_check_area.classList.toggle('check_area_click');
+//   };
+//   language_checkbox.onclick = function(){
+//     language_checkbox.classList.toggle('check_style_click');
+//     language_check_area.classList.toggle('check_area_click');
+//   };
+  
+// };
+// for(i=0; i<=3; i++){
+//   coloringCheckbox(i);
+// };
+// for(i=0; i<=7; i++){
+//   coloringCheckbox(i);
+// };
+const checkboxes = document.querySelectorAll(".checkboxes");
+const checkareas = document.querySelectorAll(".checkareas");
+// console.log(checkboxes);
+checkboxes.forEach((checkbox) => {
+  checkbox.addEventListener("click", function () {
+    // console.log(this);
+    checkbox.classList.toggle("check_style_click");
+  });
+});
 
+checkareas.forEach((checkarea) => {
+  checkarea.addEventListener("click", function () {
+    // console.log(this);
+    checkarea.classList.toggle("check_area_click");
+  });
+});
 // 何にチェックしたかをコンソールで表示
-const formElements = document.forms.submitForm;
+// const formElements = document.forms.submitForm;
 
-formElements.addEventListener('submit', e =>{
-  e.preventDefault();
-  Array.prototype.forEach.call(formElements.learning_content, function (checkbox) {
-    if(checkbox.checked === true){
-      console.log('学習内容id：', checkbox.value);
-      // console.log(checkbox);
-      // formElements.learningに含まれる要素すべてがforEachにより１つのcheckboxという引数に格納された
-    }
-  });
-  Array.prototype.forEach.call(formElements.learning_language, function (checkbox) {
-    if(checkbox.checked === true){
-      console.log('学習言語id：', checkbox.value);
-      // console.log(checkbox);
-      // formElements.learningに含まれる要素すべてがforEachにより１つのcheckboxという引数に格納された
-    }
-  });
-})
+// formElements.addEventListener('submit', e =>{
+//   e.preventDefault();
+//   Array.prototype.forEach.call(formElements.learning_content, function (checkbox) {
+//     if(checkbox.checked === true){
+//       console.log('学習内容id：', checkbox.value);
+//       // console.log(checkbox);
+//       // formElements.learningに含まれる要素すべてがforEachにより１つのcheckboxという引数に格納された
+//     }
+//   });
+//   Array.prototype.forEach.call(formElements.learning_language, function (checkbox) {
+//     if(checkbox.checked === true){
+//       console.log('学習言語id：', checkbox.value);
+//       // console.log(checkbox);
+//       // formElements.learningに含まれる要素すべてがforEachにより１つのcheckboxという引数に格納された
+//     }
+//   });
+// })
 
 //ツイートエリアの作成
 

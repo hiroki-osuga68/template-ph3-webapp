@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 // ファサード
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 // モデル
 use App\Model\LearningContent;
 use App\Model\LearningLanguage;
@@ -35,7 +36,7 @@ class WebappController extends Controller
         // 年の第何週か（月の何週目でもok）
         $dt = new Carbon();
         $week_of_year = $dt->weekOfYear;
- 
+
 
         // 合計
         $total_language_hour = LanguageRecord::where('user_id', $user_id)->sum('study_hour');
@@ -82,7 +83,6 @@ class WebappController extends Controller
             ->orderBy('learning_language_id')
             ->groupBy('learning_language_id')
             ->get();
-
         // コンテンツの円グラフ
         $learning_contents = LearningContent::all();
         $pie_chart_contents = ContentRecord::where('user_id', $user_id)->join('learning_contents', 'content_records.learning_content_id', '=', 'learning_contents.id')
@@ -91,7 +91,7 @@ class WebappController extends Controller
             ->groupBy('learning_content_id')
             ->get();
 
-        return view('index', compact('today_study_hour', 'month_study_hour', 'total_study_hour', 'learning_languages', 'pie_chart_languages', 'learning_contents', 'pie_chart_contents', 'this_month', 'update_bargraph_data', 'week_of_year'));
+        return view('index', compact('today_study_hour', 'month_study_hour', 'total_study_hour', 'learning_languages', 'pie_chart_languages', 'learning_contents', 'pie_chart_contents', 'this_month', 'update_bargraph_data', 'week_of_year', 'user'));
     }
 
     /**
@@ -113,6 +113,58 @@ class WebappController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->all();
+        unset($data['_token']);
+        // bulk insert
+        // ver8以前はbulk insert用の関数が用意されていないので自分で作成
+
+        // 言語データ追加
+        // $params = [];
+        // for ($i = 1; $i <= count($data['learning_language']); $i++) {
+        //     $params[] = [
+        //         'date' => $data['date'],
+        //         'study_hour' => $data['study_hour'],
+        //         'user_id' => $data['user_id'],
+        //         'learning_language_id' => $data['learning_language'][$i - 1]
+        //     ];
+        // }
+        // LanguageRecord::insert($params);
+
+        // コンテンツデータ追加
+        // $params = [];
+        // for ($i = 1; $i <= count($data['learning_content']); $i++) {
+        //     $params[] = [
+        //         'date' => $data['date'],
+        //         'study_hour' => $data['study_hour'],
+        //         'user_id' => $data['user_id'],
+        //         'learning_content_id' => $data['learning_content'][$i - 1]
+        //     ];
+        // }
+        // ContentRecord::insert($params);
+
+        // createメソッド使用バージョン・・for文でクエリ複数発行しているので理想ではない
+        for ($i = 1; $i <= count($data['learning_language']); $i++) {
+            $language_record = new LanguageRecord();
+            // 言語を複数選択した際に、その分学習時間が合計されてしまうことを防ぎたい
+            // $data['study_hour']を選択された数で割り算して平均出す・・現状少数がmysql側で整数値に直されてしまう
+            $language_record->create([
+                'date' => $data['date'],
+                'study_hour' => $data['study_hour']/count($data['learning_language']),
+                'user_id' => $data['user_id'],
+                'learning_language_id' => $data['learning_language'][$i - 1]
+            ]);
+        }
+        for ($i = 1; $i <= count($data['learning_content']); $i++) {
+            // ContentRecordのmodelクラスのインスタンスを生成
+            $content_record = new ContentRecord();
+            $content_record->create([
+                'date' => $data['date'],
+                'study_hour' => $data['study_hour']/count($data['learning_content']),
+                'user_id' => $data['user_id'],
+                'learning_content_id' => $data['learning_content'][$i - 1]
+            ]);
+        }
+        return redirect()->route('webapp');
     }
 
     /**
