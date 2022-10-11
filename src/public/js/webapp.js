@@ -45,49 +45,33 @@ submit_info.onclick = function(){
   circle_border.className = 'circle-border';
   circle_core.className = 'circle-core';
   // .loaded を追加してローディング表示を消す
-  // spinner.classList.toggle('loaded');
-  // console.log(submit_info);
   setTimeout(disappearSpinner, 1990);
   setTimeout(showFinish, 2000);
 };
 
-
-// クリックした際にチェックボックスの色、各項目の背景色を変える
-// font awesomeでチェックボックス使っちゃたから余計な苦労してる説アリ
-function coloringCheckbox(i){
-  let checkbox = document.getElementById(`checkbox${i+1}`);
-  let check_area = document.getElementById(`check_area${i+1}`);
-  
-  checkbox.onclick = function(){
-    checkbox.classList.toggle('check_style_click');
-    check_area.classList.toggle('check_area_click');
-  };
-};
-for(i=0; i<=11; i++){
-  coloringCheckbox(i);
-};
-
-// 何にチェックしたかをコンソールで表示
-const formElements = document.forms.submitForm;
-
-formElements.addEventListener('submit', e =>{
-  e.preventDefault();
-  Array.prototype.forEach.call(formElements.learning_content, function (checkbox) {
-    if(checkbox.checked === true){
-      console.log('学習内容id：', checkbox.value);
-      // console.log(checkbox);
-      // formElements.learningに含まれる要素すべてがforEachにより１つのcheckboxという引数に格納された
-    }
+// チェック判定はラベル全体に有効→チェックボックスが押されたら背景も変える
+const checkboxes = document.querySelectorAll(".checkboxes");
+const checkareas = document.querySelectorAll(".checkareas");
+checkboxes.forEach((checkbox) => {
+  checkbox.addEventListener("click", function () {
+    checkbox.classList.toggle("check_style_click");
+    // チェックされたボックスの親要素labelを取得し、背景色を変更
+    checkbox.parentElement.classList.toggle("check_area_click");
   });
-  Array.prototype.forEach.call(formElements.learning_language, function (checkbox) {
-    if(checkbox.checked === true){
-      console.log('学習言語id：', checkbox.value);
-      // console.log(checkbox);
-      // formElements.learningに含まれる要素すべてがforEachにより１つのcheckboxという引数に格納された
-    }
-  });
-})
+});
 
+// チェック項目が1つも選択されていない場合に、バリデーション
+// let checked_sum; //チェックが入っている個数
+// $('.submit_info').on("click",function(){
+//    checked_sum = $('.validation:checked').length; //チェックが入っているチェックボックスの取得
+//    if( checked_sum > 0 ){
+//         $('.validation').prop("required",false); //required属性の解除
+//    }else{
+//         $('.validation').prop("required",true); //required属性の付与
+//    }
+// });
+
+// シェア用
 //ツイートエリアの作成
 
 let learningHour = document.getElementById('learning_hour');
