@@ -419,7 +419,7 @@ input {
 .check_contents input {
   box-sizing: border-box;
   /* display: none; */
-  /* visibility: hidden; */
+  visibility: hidden;
 }
 
 .check_contents span {
@@ -467,7 +467,11 @@ input {
 .check_style_click {
   color: #0f71bd;
 }
-
+.name_color {
+  font-family: "Arial", "メイリオ";
+  color: #282828!important;
+  font-weight: 400;
+}
 .confirm_twitter {
   margin-top: 16px;
   /* padding: auto 0; */
