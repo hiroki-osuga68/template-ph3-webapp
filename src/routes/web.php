@@ -33,3 +33,12 @@ Route::get('/test', function () {
     Mail::to('test@example.com')->send(new Test);
     return 'メール送信しました！';
 });
+
+// 管理者
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+
+Route::post('/login/admin', 'Auth\LoginController@adminLogin');
+Route::post('/register/admin', 'Auth\RegisterController@createAdmin')->name('admin-register');
+
+Route::view('/admin', 'admin')->middleware('auth:admin')->name('admin-home');

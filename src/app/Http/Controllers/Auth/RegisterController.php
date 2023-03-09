@@ -8,6 +8,10 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+// 管理者用
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Admin;
 
 class RegisterController extends Controller
 {
@@ -39,6 +43,8 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        // LoginController 同様に管理者用のガードコントロールのミドルウェア
+        $this->middleware('guest:admin');
     }
 
     /**
@@ -69,5 +75,30 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function adminValidator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:admins'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+
+    public function showAdminRegisterForm()
+    {
+        return view('auth.register', ['authgroup' => 'admin']);
+    }
+
+    protected function createAdmin(Request $request)
+    {
+        $this->adminValidator($request->all())->validate();
+        $admin = Admin::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/admin');
     }
 }
