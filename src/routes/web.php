@@ -25,6 +25,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 // 最終的にはログインしてユーザーごとのwebappが表示されるように変更
 Route::get('/webapp', 'WebappController@index')->middleware('auth')->name('webapp');
+// 投稿機能
+Route::post('/webapp/store', 'WebappController@store')->middleware('auth')->name('store');
 
 // メールテスト
 Route::get('/test', function () {

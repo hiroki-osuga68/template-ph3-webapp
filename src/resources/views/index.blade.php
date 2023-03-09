@@ -88,7 +88,9 @@
         <div class="modalWrapper">
 
             {{-- <!-- post処理 --> --}}
-            <form action="add_data.php" method="post" name="submitForm" class="submit__form">
+            <form action="/webapp/store" method="post" name="submitForm" class="submit__form">
+                @csrf
+                <input type='hidden' name='user_id' value="{{ $user['id'] }}">
                 {{-- <!-- エリア内のflex適用部分 --> --}}
                 <div class="modal_area">
                     {{-- <!-- 左側のコンテンツ --> --}}
@@ -96,53 +98,35 @@
 
                         <div>
                             <div class="modal_small_title">学習日</div>
-                            <input id="sample" class="s_textbox flatpickr-input" type="text" name="learning_date"
-                                readonly="readonly">
+                            <input id="sample" class="s_textbox flatpickr-input" type="text" name="date"
+                                readonly="readonly" required>
                         </div>
 
                         <div>
                             <div class="modal_small_title">学習コンテンツ（複数選択可）</div>
                             <ul class="check_contents">
-                                <li><label id="check_area1"><input type="checkbox" name="learning_content"
-                                            value="2"><span id="checkbox1"
-                                            class="fas fa-check-circle check_style"></span>N予備校</label>
-                                </li>
-                                <li><label id="check_area2"><input type="checkbox" name="learning_content"
-                                            value="1"><span id="checkbox2"
-                                            class="fas fa-check-circle check_style"></span>ドットインストール</label></li>
-                                <li><label id="check_area3"><input type="checkbox" name="learning_content"
-                                            value="3"><span id="checkbox3"
-                                            class="fas fa-check-circle check_style"></span>POSSE課題</label></li>
+                                @foreach ($learning_contents as $learning_content)
+                                    <li>
+                                        <label class="checkareas"><input class="validation" type="checkbox" name="learning_content[]"
+                                                value="{{ $learning_content->id }}"><span
+                                                class="fas fa-check-circle check_style checkboxes"><span
+                                                    class="name_color">{{ $learning_content->name }}</span></span></label>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
 
                         <div>
                             <div class="modal_small_title">学習言語（複数選択可）</div>
                             <ul class="check_contents">
-                                <li><label id="check_area4"><input type="checkbox" name="learning_language"
-                                            value="4"><span id="checkbox4"
-                                            class="fas fa-check-circle check_style"></span>HTML</label></li>
-                                <li><label id="check_area5"><input type="checkbox" name="learning_language"
-                                            value="2"><span id="checkbox5"
-                                            class="fas fa-check-circle check_style"></span>CSS</label></li>
-                                <li><label id="check_area6"><input type="checkbox" name="learning_language"
-                                            value="1"><span id="checkbox6"
-                                            class="fas fa-check-circle check_style"></span>JavaScript</label></li>
-                                <li><label id="check_area7"><input type="checkbox" name="learning_language"
-                                            value="3"><span id="checkbox7"
-                                            class="fas fa-check-circle check_style"></span>PHP</label></li>
-                                <li><label id="check_area8"><input type="checkbox" name="learning_language"
-                                            value="5"><span id="checkbox8"
-                                            class="fas fa-check-circle check_style"></span>Laravel</label></li>
-                                <li><label id="check_area9"><input type="checkbox" name="learning_language"
-                                            value="6"><span id="checkbox9"
-                                            class="fas fa-check-circle check_style"></span>SQL</label></li>
-                                <li><label id="check_area10"><input type="checkbox" name="learning_language"
-                                            value="7"><span id="checkbox10"
-                                            class="fas fa-check-circle check_style"></span>SHELL</label></li>
-                                <li><label id="check_area11"><input type="checkbox" name="learning_language"
-                                            value="8"><span id="checkbox11"
-                                            class="fas fa-check-circle check_style"></span>情報システム基礎知識（その他）</label></li>
+                                @foreach ($learning_languages as $learning_language)
+                                    <li>
+                                        <label class="checkareas"><input type="checkbox" name="learning_language[]"
+                                                value="{{ $learning_language->id }}"><span
+                                                class="fas fa-check-circle check_style checkboxes"><span
+                                                    class="name_color">{{ $learning_language->name }}</span></span></label>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
 
@@ -151,8 +135,8 @@
                     <div id="modal_2nd">
                         <div>
                             <p class="modal_small_title">学習時間</p>
-                            <input id="learning_hour" class="s_textbox" type="number" name="learning_hour"
-                                step="1" min="0" max="10">
+                            <input id="learning_hour" class="s_textbox" type="number" name="study_hour" step="1"
+                                min="0" max="10" required>
                         </div>
 
                         <div>
@@ -161,8 +145,9 @@
                         </div>
 
                         <div class="confirm_twitter">
-                            <p class="mb-0 "><label id="check_area12"><input id="twitter_box" type="checkbox"><span id="checkbox12"
-                                        class="fas fa-check-circle check_style"></span>Twitterにシェアする</label></p>
+                            <p class="mb-0 "><label class="checkareas"><input id="twitter_box"
+                                        type="checkbox"><span
+                                        class="fas fa-check-circle check_style checkboxes"></span>Twitterにシェアする</label></p>
                         </div>
                     </div>
 
@@ -182,7 +167,7 @@
 
                 </div>
 
-                <input type="submit" name="submit" id="submit_info" class="submit__button2" target="_blank"
+                <input type="submit" name="submit" id="submit_info" class="submit__button2 submit_info" target="_blank"
                     value="記録・投稿">
             </form>
         </div>
