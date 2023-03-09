@@ -142,6 +142,8 @@ class WebappController extends Controller
         // }
         // ContentRecord::insert($params);
 
+        // ------不完全：言語とコンテンツで、時間が合計されるのやだ。UIの設計上たぶん改善難しい-----------
+
         // createメソッド使用バージョン・・for文でクエリ複数発行しているので理想ではない
         for ($i = 1; $i <= count($data['learning_language']); $i++) {
             $language_record = new LanguageRecord();
