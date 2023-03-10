@@ -42,3 +42,14 @@ Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin')->name('admin-register');
 
 Route::view('/admin', 'admin')->middleware('auth:admin')->name('admin-home');
+
+// 学習コンテンツ管理
+// prefixがあってるか後で検証
+Route::prefix('admin_content')->group(function () {
+    Route::get('/', 'AdmincontentController@index')->name('admin_content.index');
+    Route::post('/', 'AdmincontentController@store')->name('admin_content.store');
+    // 編集ルーティング
+    Route::get('/edit/{id}', 'AdmincontentController@edit')->name('admin_content.edit');
+    Route::post('/update/{id}', 'AdmincontentController@update')->name('admin_content.update');
+    Route::post('/destroy/{id}', 'AdmincontentController@destroy')->name('admin_content.destroy');
+});

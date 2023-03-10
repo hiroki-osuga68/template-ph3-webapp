@@ -15,6 +15,13 @@
                     @endif
 
                     You are logged in as 管理者!
+                    TO DO: ユーザー作成のUI
+
+                    <div class="mt-3">
+                        <a href={{ route('admin_content.index') }} class='h4'>
+                            1. 学習コンテンツ一覧
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
