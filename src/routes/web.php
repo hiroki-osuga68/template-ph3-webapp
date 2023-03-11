@@ -53,3 +53,14 @@ Route::prefix('admin_content')->group(function () {
     Route::post('/update/{id}', 'AdmincontentController@update')->name('admin_content.update');
     Route::post('/destroy/{id}', 'AdmincontentController@destroy')->name('admin_content.destroy');
 });
+
+// 学習言語管理
+// prefixがあってるか後で検証
+Route::prefix('admin_language')->group(function () {
+    Route::get('/', 'AdminlanguageController@index')->name('admin_language.index');
+    Route::post('/', 'AdminlanguageController@store')->name('admin_language.store');
+    // 編集ルーティング
+    Route::get('/edit/{id}', 'AdminlanguageController@edit')->name('admin_language.edit');
+    Route::post('/update/{id}', 'AdminlanguageController@update')->name('admin_language.update');
+    Route::post('/destroy/{id}', 'AdminlanguageController@destroy')->name('admin_language.destroy');
+});

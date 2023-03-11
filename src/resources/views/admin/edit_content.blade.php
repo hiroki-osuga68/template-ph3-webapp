@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['authgroup'=>'admin'])
 @section('content')
     <h1>情報編集</h1>
 
@@ -9,7 +9,6 @@
     </div>
 
     <!-- form -->
-    {{-- <form method="POST" action="/edit_title/update/{{ $learning_content->id }}"> --}}
     <form method="POST" action="{{ route('admin_content.update', $learning_content->id) }}">
         @csrf
         <div class="form-group">

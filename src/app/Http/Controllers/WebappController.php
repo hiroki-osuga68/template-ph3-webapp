@@ -85,6 +85,7 @@ class WebappController extends Controller
             ->get();
         // コンテンツの円グラフ
         $learning_contents = LearningContent::all();
+        // week 62は、この書き方でできるのか？
         $pie_chart_contents = ContentRecord::where('user_id', $user_id)->join('learning_contents', 'content_records.learning_content_id', '=', 'learning_contents.id')
             ->selectRaw('SUM(study_hour) AS study_hour, learning_content_id, name, color')
             ->orderBy('learning_content_id')
@@ -115,6 +116,7 @@ class WebappController extends Controller
         //
         $data = $request->all();
         unset($data['_token']);
+        // dd($data);
         // bulk insert
         // ver8以前はbulk insert用の関数が用意されていないので自分で作成
 

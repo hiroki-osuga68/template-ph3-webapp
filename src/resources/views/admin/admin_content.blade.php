@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['authgroup'=>'admin'])
 @section('content')
     <div class="mx-auto text-center">
         {{-- 新規登録 --}}
