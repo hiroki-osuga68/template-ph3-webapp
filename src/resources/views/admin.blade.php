@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">管理者 Dashboard</div>
+                <div class="card-header">管理者画面</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,20 +14,26 @@
                         </div>
                     @endif
 
-                    You are logged in as 管理者!
+                    <div class="mt-3">
+                        <a href={{ route('admin_content.index') }} class='h5'>
+                            学習コンテンツの管理へ
+                        </a>
+                    </div>
+                    <div class="mt-3">
+                        <a href={{ route('admin_language.index') }} class='h5'>
+                            学習言語の管理へ
+                        </a>
+                    </div>
+
                 </div>
             </div>
             <div>TO DO: ユーザー作成のUI</div>
-                    <div class="mt-3">
-                        <a href={{ route('admin_content.index') }} class='h4'>
-                            1. 学習コンテンツの管理へ
-                        </a>
-                    </div>
-                    <div class="mt-3">
-                        <a href={{ route('admin_language.index') }} class='h4'>
-                            2. 学習言語の管理へ
-                        </a>
-                    </div>
+            <div>
+                <a href={{ route('admin-register') }} class='h5'>
+                    管理者ユーザーの作成
+                </a>
+            </div>
+                    
         </div>
     </div>
 </div>

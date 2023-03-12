@@ -105,12 +105,12 @@
                         <div>
                             <div class="modal_small_title">学習コンテンツ（複数選択可）</div>
                             <ul class="check_contents">
-                                @foreach ($learning_contents as $learning_content)
+                                @foreach ($modal_learning_contents as $modal_learning_content)
                                     <li>
                                         <label class="checkareas"><input class="validation" type="checkbox" name="learning_content[]"
-                                                value="{{ $learning_content->id }}"><span
+                                                value="{{ $modal_learning_content->id }}"><span
                                                 class="fas fa-check-circle check_style checkboxes"><span
-                                                    class="name_color">{{ $learning_content->name }}</span></span></label>
+                                                    class="name_color">{{ $modal_learning_content->name }}</span></span></label>
                                     </li>
                                 @endforeach
                             </ul>
@@ -119,12 +119,12 @@
                         <div>
                             <div class="modal_small_title">学習言語（複数選択可）</div>
                             <ul class="check_contents">
-                                @foreach ($learning_languages as $learning_language)
+                                @foreach ($modal_learning_languages as $modal_learning_language)
                                     <li>
                                         <label class="checkareas"><input type="checkbox" name="learning_language[]"
-                                                value="{{ $learning_language->id }}"><span
+                                                value="{{ $modal_learning_language->id }}"><span
                                                 class="fas fa-check-circle check_style checkboxes"><span
-                                                    class="name_color">{{ $learning_language->name }}</span></span></label>
+                                                    class="name_color">{{ $modal_learning_language->name }}</span></span></label>
                                     </li>
                                 @endforeach
                             </ul>

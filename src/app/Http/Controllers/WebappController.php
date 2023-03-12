@@ -75,8 +75,12 @@ class WebappController extends Controller
             array_splice($update_bargraph_data, $each_date_day - 1, 1, $each_month_language_record['study_hour']);
         }
 
+        // モーダル用の学習コンテンツデータ
+        $modal_learning_contents = LearningContent::all();
+        $modal_learning_languages = LearningLanguage::all();
+
         // 言語の円グラフ
-        $learning_languages = LearningLanguage::all();
+        $learning_languages = LearningLanguage::withTrashed()->get();
         // joinじゃなくてModelでhasMany定義でwithメソッド使ったほうが良いかもしれないけどエラーでるので後回し
         $pie_chart_languages = LanguageRecord::where('user_id', $user_id)->join('learning_languages', 'language_records.learning_language_id', '=', 'learning_languages.id')
             ->selectRaw('SUM(study_hour) AS study_hour, learning_language_id, name, color')
@@ -84,7 +88,7 @@ class WebappController extends Controller
             ->groupBy('learning_language_id')
             ->get();
         // コンテンツの円グラフ
-        $learning_contents = LearningContent::all();
+        $learning_contents = LearningContent::withTrashed()->get();
         // week 62は、この書き方でできるのか？
         $pie_chart_contents = ContentRecord::where('user_id', $user_id)->join('learning_contents', 'content_records.learning_content_id', '=', 'learning_contents.id')
             ->selectRaw('SUM(study_hour) AS study_hour, learning_content_id, name, color')
@@ -92,7 +96,7 @@ class WebappController extends Controller
             ->groupBy('learning_content_id')
             ->get();
 
-        return view('index', compact('today_study_hour', 'month_study_hour', 'total_study_hour', 'learning_languages', 'pie_chart_languages', 'learning_contents', 'pie_chart_contents', 'this_month', 'update_bargraph_data', 'week_of_year', 'user'));
+        return view('index', compact('today_study_hour', 'month_study_hour', 'total_study_hour','modal_learning_languages', 'learning_languages', 'pie_chart_languages', 'modal_learning_contents', 'learning_contents', 'pie_chart_contents', 'this_month', 'update_bargraph_data', 'week_of_year', 'user'));
     }
 
     /**

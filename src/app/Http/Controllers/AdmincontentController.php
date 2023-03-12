@@ -23,7 +23,7 @@ class AdmincontentController extends Controller
     
     public function index()
     {
-        $learning_contents = LearningContent::all();
+        $learning_contents = LearningContent::withTrashed()->get();
         // viewの第2引数に変数を指定し、bladeで利用可能にする
         return view('admin/admin_content', compact('learning_contents'));
     }
@@ -109,6 +109,17 @@ class AdmincontentController extends Controller
         $learning_content = LearningContent::find($id);
         //削除
         $learning_content->delete();
+        //リダイレクト
+        return redirect()->route('admin_content.index');
+    }
+
+    public function restore($id)
+    {
+        //復元対象レコードを検索
+        $learning_content = LearningContent::onlyTrashed()->find($id);
+        // dd($learning_content);
+        //復元
+        $learning_content->restore();
         //リダイレクト
         return redirect()->route('admin_content.index');
     }

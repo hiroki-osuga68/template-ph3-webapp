@@ -21,6 +21,7 @@
                         <th>言語色</th>
                         <th>編集</th>
                         <th>削除</th>
+                        <th>復元</th>
                     </tr>
                 </thead>
                 <tbody id="prefectureItems">
@@ -40,6 +41,9 @@
                             <td>
                                 <a href="{{ route('admin_language.edit', $learning_language->id) }}" class="btn btn-sm btn-primary">編集</a>
                             </td>
+                            @if(isset($learning_language->deleted_at))
+                            <td></td>
+                            @else
                             <td>
                                 <form action="{{ route('admin_language.destroy', $learning_language->id) }}" method="POST">
                                 {{-- <form action="" method="POST"> --}}
@@ -48,6 +52,18 @@
                                         onClick="return confirm('この学習言語を削除しますか？')" value="削除">
                                 </form>
                             </td>
+                            @endif
+                            @if(isset($learning_language->deleted_at))
+                                <td>
+                                    <form action="{{ route('admin_language.restore', $learning_language->id) }}" method="POST">
+                                            @csrf
+                                            <input type="submit" class="btn btn-sm btn-success"
+                                                onClick="return confirm('この学習言語を復元しますか？')" value="復元">
+                                    </form>
+                                </td>
+                            @else
+                                <td></td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

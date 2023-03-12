@@ -52,6 +52,7 @@ Route::prefix('admin_content')->group(function () {
     Route::get('/edit/{id}', 'AdmincontentController@edit')->name('admin_content.edit');
     Route::post('/update/{id}', 'AdmincontentController@update')->name('admin_content.update');
     Route::post('/destroy/{id}', 'AdmincontentController@destroy')->name('admin_content.destroy');
+    Route::post('/restore/{id}', 'AdmincontentController@restore')->name('admin_content.restore');
 });
 
 // 学習言語管理
@@ -63,4 +64,5 @@ Route::prefix('admin_language')->group(function () {
     Route::get('/edit/{id}', 'AdminlanguageController@edit')->name('admin_language.edit');
     Route::post('/update/{id}', 'AdminlanguageController@update')->name('admin_language.update');
     Route::post('/destroy/{id}', 'AdminlanguageController@destroy')->name('admin_language.destroy');
+    Route::post('/restore/{id}', 'AdminlanguageController@restore')->name('admin_language.restore');
 });

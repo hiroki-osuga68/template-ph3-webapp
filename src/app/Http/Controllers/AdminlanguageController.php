@@ -22,7 +22,7 @@ class AdminlanguageController extends Controller
 
     public function index()
     {
-        $learning_languages = LearningLanguage::all();
+        $learning_languages = LearningLanguage::withTrashed()->get();
         // viewの第2引数に変数を指定し、bladeで利用可能にする
         return view('admin/admin_language', compact('learning_languages'));
     }
@@ -108,6 +108,17 @@ class AdminlanguageController extends Controller
         $learning_language = LearningLanguage::find($id);
         //削除
         $learning_language->delete();
+        //リダイレクト
+        return redirect()->route('admin_language.index');
+    }
+
+    public function restore($id)
+    {
+        //復元対象レコードを検索
+        $learning_language = LearningLanguage::onlyTrashed()->find($id);
+        // dd($learning_content);
+        //復元
+        $learning_language->restore();
         //リダイレクト
         return redirect()->route('admin_language.index');
     }

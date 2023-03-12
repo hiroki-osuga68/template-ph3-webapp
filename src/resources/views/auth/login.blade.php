@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ isset($authgroup) ? ucwords($authgroup) : ""}} {{ __('Login') }}</div>
+                <div class="card-header">{{ isset($authgroup) ? ucwords("管理者") : ""}} {{ __('Login') }}</div>
 
                 <div class="card-body">
                     @isset($authgroup)
