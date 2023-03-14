@@ -24,14 +24,18 @@
                             学習言語の管理へ
                         </a>
                     </div>
+                    <div class="mt-3">
+                        <a href={{ route('admin_users_table.index') }} class='h5'>
+                            一般ユーザーの管理へ
+                        </a>
+                    </div>
+                    <div class="mt-3">
+                        <a href={{ route('admin_admins_table.index') }} class='h5'>
+                            管理ユーザーの管理へ
+                        </a>
+                    </div>
 
                 </div>
-            </div>
-            <div>TO DO: ユーザー作成のUI</div>
-            <div>
-                <a href={{ route('admin-register') }} class='h5'>
-                    管理者ユーザーの作成
-                </a>
             </div>
                     
         </div>

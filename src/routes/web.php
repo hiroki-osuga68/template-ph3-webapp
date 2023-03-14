@@ -66,3 +66,14 @@ Route::prefix('admin_language')->group(function () {
     Route::post('/destroy/{id}', 'AdminlanguageController@destroy')->name('admin_language.destroy');
     Route::post('/restore/{id}', 'AdminlanguageController@restore')->name('admin_language.restore');
 });
+
+// ユーザー管理
+Route::prefix('admin_users_table')->group(function () {
+    Route::get('/', 'AdminuserstableController@index')->name('admin_users_table.index');
+    Route::post('/', 'AdminuserstableController@store')->name('admin_users_table.store');
+});
+// 管理者の管理
+Route::prefix('admin_admins_table')->group(function () {
+    Route::get('/', 'AdminadminstableController@index')->name('admin_admins_table.index');
+    Route::post('/', 'AdminadminstableController@store')->name('admin_admins_table.store');
+});
