@@ -267,16 +267,17 @@
             }
         });
         // 言語の円グラフ
-        var dataLabelPlugin = {
+        var dataLabelPluginLanguage = {
             afterDatasetsDraw: function(chart, easing) {
                 // To only draw at the end of animation, check for easing === 1
                 var ctx = chart.ctx;
-
                 chart.data.datasets.forEach(function(dataset, i) {
+                    // 合計を出す
                     var dataSum = 0;
                     dataset.data.forEach(function(element) {
-                        dataSum += element;
+                        dataSum += Number(element);
                     });
+                    // ここまで
 
                     var meta = chart.getDatasetMeta(i);
                     if (!meta.hidden) {
@@ -284,15 +285,14 @@
                             // Draw the text in black, with the specified font
                             ctx.fillStyle = 'rgb(255, 255, 255)';
 
-                            var fontSize = 10;
+                            var fontSize = 8;
                             var fontStyle = 'normal';
                             var fontFamily = 'Helvetica Neue';
                             ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
 
                             // Just naively convert to string for now
-                            var labelString = chart.data.labels[index];
-                            var dataString = (Math.round(dataset.data[index] / dataSum * 1000) / 10)
-                                .toString() + "%";
+                            // var labelString = chart.data.labels[index];
+                            var dataString = (Math.round(dataset.data[index] / dataSum * 100 * 10)/10).toString() + "%";
                             // Make sure alignment settings are correct
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'middle';
@@ -304,6 +304,7 @@
                                 padding);
                         });
                     }
+                
                 });
             }
         };
@@ -342,10 +343,10 @@
                 },
                 maintainAspectRatio: false,
             },
-            plugins: [dataLabelPlugin]
+            plugins: [dataLabelPluginLanguage]
         });
         // コンテンツの円グラフ
-        var dataLabelPlugin = {
+        var dataLabelPluginContent = {
             afterDatasetsDraw: function(chart, easing) {
                 // To only draw at the end of animation, check for easing === 1
                 var ctx = chart.ctx;
@@ -353,8 +354,9 @@
                 chart.data.datasets.forEach(function(dataset, i) {
                     var dataSum = 0;
                     dataset.data.forEach(function(element) {
-                        dataSum += element;
+                        dataSum += Number(element);
                     });
+                    
 
                     var meta = chart.getDatasetMeta(i);
                     if (!meta.hidden) {
@@ -362,7 +364,7 @@
                             // Draw the text in black, with the specified font
                             ctx.fillStyle = 'rgb(255, 255, 255)';
 
-                            var fontSize = 12;
+                            var fontSize = 8;
                             var fontStyle = 'normal';
                             var fontFamily = 'Helvetica Neue';
                             ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
@@ -383,6 +385,7 @@
                                 padding);
                         });
                     }
+                
                 });
             }
         };
@@ -424,7 +427,7 @@
                 },
                 maintainAspectRatio: false,
             },
-            plugins: [dataLabelPlugin],
+            plugins: [dataLabelPluginContent],
         });
     </script>
 @endsection

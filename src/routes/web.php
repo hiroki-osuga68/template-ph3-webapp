@@ -16,9 +16,10 @@ use App\Mail\Test;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', 'WebappController@index')->middleware('auth')->name('webapp');
 
 Auth::routes();
 
