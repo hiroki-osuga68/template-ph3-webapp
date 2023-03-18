@@ -16,7 +16,7 @@ class CreateContentRecords extends Migration
         Schema::create('content_records', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('date');
-            $table->integer('study_hour');
+            $table->double('study_hour');
             $table->integer('user_id');
             $table->integer('learning_content_id');
             $table->timestamps();

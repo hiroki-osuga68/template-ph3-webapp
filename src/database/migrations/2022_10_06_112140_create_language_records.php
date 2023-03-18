@@ -16,9 +16,9 @@ class CreateLanguageRecords extends Migration
         Schema::create('language_records', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('date');
-            $table->integer('study_hour');
+            $table->double('study_hour');
             $table->integer('user_id');
-            $table->integer('learning_content_id');
+            $table->integer('learning_language_id');
             $table->timestamps();
         });
     }

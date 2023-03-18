@@ -34,56 +34,31 @@ class WebappController extends Controller
         $this_month = Carbon::now()->format('Y年m月');
         // 棒グラフの末日指定
         $last_day = Carbon::now()->endOfMonth()->format('d');
-        // 年の第何週か（月の何週目でもok）
+        // 年の第何週か
         $dt = new Carbon();
         $week_of_year = $dt->weekOfYear;
 
-        // 追加
-        $total_hour = StudyHoursPost::where('user_id', $user_id)->sum('total_hour');
-        // dd($total_hour);
+        // → テーブル定義でstudy_hourテーブルを別途作って、postで先にstudy_hourのテーブルにデータ入れてから、言語・コンテンツのhourにデータを渡し、選択した言語・コンテンツの数だけ割り算する方向に切り替え
         // 合計
-        // $total_language_hour = LanguageRecord::where('user_id', $user_id)->sum('study_hour');
-        // $total_content_hour = ContentRecord::where('user_id', $user_id)->sum('study_hour');
-        // ※（単純な足し算じゃ実用的じゃないから言語・コンテンツが一緒に選択されたら足し算されないような仕組みのがbetterか）
-        // → テーブル定義でstudy_hourテーブルを別途作って、postで先にstudy_hourのテーブルにデータ入れてから、言語・コンテンツのhourにデータを渡し、選択した言語・コンテンツの数だけ割り算する
-        // $total_study_hour = $total_content_hour + $total_language_hour;
+        $total_hour = StudyHoursPost::where('user_id', $user_id)->sum('total_hour');
         // 今日
-        // 追加
         $today_hour  = StudyHoursPost::where('user_id', $user_id)->where('study_date', $today)->sum('total_hour');
-        // dd($today_hour);
-        // $today_language_hour = LanguageRecord::where('user_id', $user_id)->where('date', $today)->sum('study_hour');
-        // $today_content_hour = ContentRecord::where('user_id', $user_id)->where('date', $today)->sum('study_hour');
-        // $today_study_hour = $today_language_hour + $today_content_hour;
         // 月
-        // ----------追加---------
         $month_hour = StudyHoursPost::where('user_id', $user_id)->whereBetween('study_date', [$date_start, $date_end])
         ->sum('total_hour');
-        // dd($month_hour);
-        // $month_language_hour = LanguageRecord::where('user_id', $user_id)->whereBetween('date', [$date_start, $date_end])
-        //     ->sum('study_hour');
-        // $month_content_hour = ContentRecord::where('user_id', $user_id)->whereBetween('date', [$date_start, $date_end])
-        //     ->sum('study_hour');
-        // $month_study_hour = $month_language_hour + $month_content_hour;
         // 棒グラフ
-        // 1．言語レコード
-        $month_language_record = LanguageRecord::where('user_id', $user_id)->whereBetween('date', [$date_start, $date_end])
-            ->selectRaw('SUM(study_hour) AS study_hour, date')
-            ->groupBy('date')
-            ->get();
-        // 2．コンテンツレコード
-        $month_content_record = ContentRecord::where('user_id', $user_id)->whereBetween('date', [$date_start, $date_end])
-            ->selectRaw('SUM(study_hour) AS study_hour, date')
-            ->groupBy('date')
-            ->get();
-
+        $month_record = StudyHoursPost::where('user_id', $user_id)->whereBetween('study_date', [$date_start, $date_end])
+        ->selectRaw('SUM(total_hour) AS total_hour, study_date')
+        ->groupBy('study_date')
+        ->get();
         // 棒グラフの学習日に対応する学習データを挿入する処理
         // 31日分の空データを用意、後で指定場所を削除して新たなデータを追加する
         $update_bargraph_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-        foreach ($month_language_record as $each_month_language_record) {
-            $each_date = $each_month_language_record['date'];
+        foreach ($month_record as $each_month_record) {
+            $each_date = $each_month_record['study_date'];
             $each_date_day = date('d', strtotime($each_date));
-            array_splice($update_bargraph_data, $each_date_day - 1, 1, $each_month_language_record['study_hour']);
+            array_splice($update_bargraph_data, $each_date_day - 1, 1, $each_month_record['total_hour']);
         }
 
         // モーダル用の学習コンテンツデータ
@@ -100,7 +75,6 @@ class WebappController extends Controller
             ->get();
         // コンテンツの円グラフ
         $learning_contents = LearningContent::withTrashed()->get();
-        // week 62は、この書き方でできるのか？
         $pie_chart_contents = ContentRecord::where('user_id', $user_id)->join('learning_contents', 'content_records.learning_content_id', '=', 'learning_contents.id')
             ->selectRaw('SUM(study_hour) AS study_hour, learning_content_id, name, color')
             ->orderBy('learning_content_id')
@@ -136,17 +110,14 @@ class WebappController extends Controller
             'total_hour' => $data['study_hour'],
             'study_date' => $data['date']
         ]);
-        // dd($study_hours_post);
 
         // ver8以前はbulk insert用の関数が用意されていないので自分で作成
-
-        // ------不完全：言語とコンテンツで、時間が合計されるのやだ。UIの設計上たぶん改善難しい-----------
 
         // createメソッド使用バージョン・・for文でクエリ複数発行しているので理想ではない
         for ($i = 1; $i <= count($data['learning_language']); $i++) {
             $language_record = new LanguageRecord();
             // 言語を複数選択した際に、その分学習時間が合計されてしまうことを防ぎたい
-            // $data['study_hour']を選択された数で割り算して平均出す・・現状少数がmysql側で整数値に直されてしまう
+            // $data['study_hour']を選択された数で割り算して平均出す・・データ型をintegerからdoubleに変更した
             $language_record->create([
                 'date' => $data['date'],
                 'study_hour' => $study_hours_post->total_hour/count($data['learning_language']),
