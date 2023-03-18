@@ -15,17 +15,17 @@
             <div class="date">
                 <section>
                     <p class="subtitle">Today</p>
-                    <p class="number">{{ $today_study_hour }}</p>
+                    <p class="number">{{ $today_hour }}</p>
                     <p class="hour">hour</p>
                 </section>
                 <section>
                     <p class="subtitle">Month</p>
-                    <p class="number">{{ $month_study_hour }}</p>
+                    <p class="number">{{ $month_hour }}</p>
                     <p class="hour">hour</p>
                 </section>
                 <section>
                     <p class="subtitle">Total</p>
-                    <p class="number">{{ $total_study_hour }}</p>
+                    <p class="number">{{ $total_hour }}</p>
                     <p class="hour">hour</p>
                 </section>
             </div>
